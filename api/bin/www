@@ -20,6 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+console.log(`\n############################\nHello world, serving on port ${port}\n############################\n`)
 
 /**
  * Listen on provided port, on all network interfaces.
