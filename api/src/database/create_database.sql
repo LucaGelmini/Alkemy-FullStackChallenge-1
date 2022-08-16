@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS balance_personal_alkemy;
-CREATE DATABASE balance_personal_alkemy;
-USE balance_personal_alkemy;
+DROP DATABASE IF EXISTS alkemy_personal_balance;
+CREATE DATABASE alkemy_personal_balance;
+USE alkemy_personal_balance;
 
 DROP TABLE IF EXISTS operation_types;
 CREATE TABLE operation_types(
