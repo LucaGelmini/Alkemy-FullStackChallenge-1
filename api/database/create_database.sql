@@ -31,6 +31,7 @@ CREATE  TABLE users (
 	`password` varchar(50) NOT NULL, 
 	name varchar(50) NOT NULL,
 	family_name varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
 	avatar_path varchar(50),
 	`create_date` timestamp null default null,
 	`update_date` timestamp null default null,
@@ -45,4 +46,5 @@ CREATE  TABLE users (
 INSERT INTO operation_types VALUES
 	(1, "incomes"),
 	(2, "expenses");
+
 
