@@ -15,6 +15,7 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.DECIMAL(10,2),
             allowNull: false
         },
+        record_date:{type: dataTypes.DATE},
         type_id: dataTypes.INTEGER(10),
         user_id: dataTypes.INTEGER(10)
     };

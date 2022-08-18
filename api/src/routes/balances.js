@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database/models')
+const balancesController = require('../controllers/balancesController');
 
-router.get('/user-:id', (req,res)=>{
-    res.send(req.params.id)
-})
+// Read by user id
+router.post('/user-:id', balancesController.userBalance);
+//Create by user id
+router.post('/user-:id/new', balancesController.createUserBalance);
+//Edit registry
+
+//Delete registry
+
+
 
 
 module.exports = router;

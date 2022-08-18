@@ -27,7 +27,8 @@ DROP TABLE IF EXISTS balances;
 CREATE TABLE balances(
 	id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	concept varchar(50) NOT NULL,
-	amount int NOT NULL,
+	amount int UNSIGNED NOT NULL,
+	record_date datetime,
 	`createdAt` timestamp null default null,
 	`updatedAt` timestamp null default null,
 	type_id int(10) UNSIGNED NOT NULL,
