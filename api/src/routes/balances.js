@@ -3,12 +3,13 @@ const router = express.Router();
 const balancesController = require('../controllers/balancesController');
 
 // Read by user id
-router.post('/user-:id', balancesController.userBalance);
+router.get('/user-:id', balancesController.userBalance);
 //Create by user id
 router.post('/user-:id/new', balancesController.createUserBalance);
-//Edit registry
-
 //Delete registry
+router.delete('/delete/:id', balancesController.destroyUserBalance);
+//Edit registry
+router.patch('/edit/:id', balancesController.editUserBalance);
 
 
 

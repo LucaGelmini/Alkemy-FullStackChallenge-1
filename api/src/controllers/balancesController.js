@@ -1,5 +1,6 @@
 const { Sequelize } = require('../database/models');
 const db = require('../database/models');
+const { dbErrorsHandler } = require('./utils/balancesController');
 
 const userBalanceSqlLiteral = `
 CASE
@@ -10,6 +11,7 @@ END AS record_date
 `
 
 module.exports = {
+    // READ
     userBalance: async (req,res)=>{
         const userId = req.params.id;
         try{
@@ -25,17 +27,41 @@ module.exports = {
                     user_id: userId
                 },
             })
+            console.log(userBalance.map(e=>e.record_date))
             res.status(200).json({data: userBalance, status: 200})
-        }catch(e){res.status(500).json({errorMessage:e.errors.map(o=>o.message)})}
+        }catch(e){res.status(500).json(dbErrorsHandler(e))}
     },
+    // CREATE
     createUserBalance: async(req,res)=>{
-        const newRegister = req.body
+        const newRegister = req.body;
+        const user = Number(req.params.id);
         try{
-            const dbFeedback = await db.Balance.create(newRegister)
+            const dbFeedback = await db.Balance.create({...newRegister, user_id: user})
             res.status(200).json({dbFeedback, status: 200})
-        }catch(e){res.status(500).json({errorMessage:e.errors.map(o=>o.message)})}
+        }catch(e){res.status(500).json(dbErrorsHandler(e))}
     },
-    //A terminar
-    editUserBalance: ()=>null,
-    destroyUserBalance: ()=>null
+    // DESTROY
+    destroyUserBalance: async(req, res)=>{
+        const balanceId = req.params.id;
+        try{
+            const dbFeedback = await db.Balance.destroy({
+                where:{
+                    id: balanceId
+                }
+            })
+            res.status(200).json({dbFeedback, status: 200})
+        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+    },
+    editUserBalance: async (req,res)=>{
+        const balanceId = req.params.id;
+        try{
+            const patchedReg = await db.Balance.update({
+                concept: req.body.concept,
+                amount: req.body.amount,
+                user_id: req.body.user_id,
+                record_date: req.body.record_date
+            },{where: {id: balanceId}});
+            res.status(200).json({patchedReg, status: 200})
+        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+    }
 }
