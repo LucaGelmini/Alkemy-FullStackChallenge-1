@@ -47,13 +47,18 @@
     height: 50%;
     overflow: hidden;
 }
-
+.registry-amount-input{
+    width: 80%;
+}
 .registry-action-button-delete{
     background-color: red;
 }
 
 .registry-action-button-edit{
     background-color: blue;
+}
+.registry-action-button-confirm{
+    background-color: green;
 }
 
 @media screen and (min-width: 720px){
