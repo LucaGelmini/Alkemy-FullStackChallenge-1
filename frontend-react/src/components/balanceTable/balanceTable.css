@@ -1,0 +1,15 @@
+.balance-table{
+    width: 80%;
+    margin: auto;
+}
+
+.balance-register-container{
+    border: solid black 2px;
+
+}
+.expenses{
+    color: red;
+}
+.incomes{
+    color: green;
+}
