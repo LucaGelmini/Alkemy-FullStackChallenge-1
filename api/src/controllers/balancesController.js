@@ -10,59 +10,69 @@ CASE
 END AS record_date
 `
 
+const findAllRegisters = async (userId) => {
+    const userBalance = await db.Balance.findAll({
+        include: [
+            { association: 'operationType' },
+        ],
+        attributes: [
+            'id', 'concept', 'amount', 'type_id', 'user_id', 'record_date',
+            Sequelize.literal(userBalanceSqlLiteral),
+            'createdAt', 'updatedAt'],
+        where: {
+            user_id: userId
+        },
+    })
+    return userBalance
+}
+
 module.exports = {
     // READ
-    userBalance: async (req,res)=>{
+    userBalance: async (req, res) => {
         const userId = req.params.id;
-        try{
-            const userBalance = await db.Balance.findAll({
-                include: [
-                    {association: 'operationType'},
-                ],
-                attributes:[
-                    'id','concept','amount', 'type_id','user_id', 'record_date',
-                Sequelize.literal(userBalanceSqlLiteral),
-            'createdAt', 'updatedAt'],
-                where: {
-                    user_id: userId
-                },
-            })
-            console.log(userBalance.map(e=>e.record_date))
-            res.status(200).json({data: userBalance, status: 200})
-        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+        try {
+            const userBalance = await findAllRegisters(userId)
+            console.log(userBalance.map(e => e.record_date))
+            res.status(200).json({ data: userBalance, status: 200 })
+        } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     },
     // CREATE
-    createUserBalance: async(req,res)=>{
+    createUserBalance: async (req, res) => {
         const newRegister = req.body;
-        console.log(req.body,'#######\n\n\n#############')
-        const user = Number(req.params.id);
-        try{
-            const dbFeedback = await db.Balance.create({...newRegister, user_id: user})
-            res.status(200).json({dbFeedback, status: 200})
-        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+        console.log(req.body, '>>>>>>>>>>>>>>> create balance!!!!')
+        const user = Number(req.params.userId);
+        try {
+            await db.Balance.create({ ...newRegister, user_id: user })
+            const balance = await findAllRegisters(user)
+            res.status(200).json({ data: balance, status: 200 })
+        } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     },
     // DESTROY
-    destroyUserBalance: async(req, res)=>{
+    destroyUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        try{
-            const dbFeedback = await db.Balance.destroy({
-                where:{
+        const userId = req.params.userId
+        try {
+            await db.Balance.destroy({
+                where: {
                     id: balanceId
                 }
             })
-            res.status(200).json({dbFeedback, status: 200})
-        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+            const balance = await findAllRegisters(userId)
+            res.status(200).json({ data: balance, status: 200 })
+        } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     },
-    editUserBalance: async (req,res)=>{
+    editUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        try{
-            const patchedReg = await db.Balance.update({
+        const userId = req.params.userId
+        try {
+            await db.Balance.update({
                 concept: req.body.concept,
                 amount: req.body.amount,
                 user_id: req.body.user_id,
                 record_date: req.body.record_date
-            },{where: {id: balanceId}});
-            res.status(200).json({patchedReg, status: 200})
-        }catch(e){res.status(500).json(dbErrorsHandler(e))}
+            }, { where: { id: balanceId } });
+            const balance = await findAllRegisters(userId)
+            res.status(200).json({ data: balance, status: 200 })
+        } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     }
 }

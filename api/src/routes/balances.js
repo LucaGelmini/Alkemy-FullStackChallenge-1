@@ -5,11 +5,11 @@ const balancesController = require('../controllers/balancesController');
 // Read by user id
 router.get('/user-:id', balancesController.userBalance);
 //Create by user id
-router.post('/user-:id/new', balancesController.createUserBalance);
+router.post('/user-:userId/new', balancesController.createUserBalance);
 //Delete registry
-router.delete('/delete/:id', balancesController.destroyUserBalance);
+router.delete('/user-:userId/delete/:id', balancesController.destroyUserBalance);
 //Edit registry
-router.patch('/edit/:id', balancesController.editUserBalance);
+router.put('/user-:userId/edit/:id', balancesController.editUserBalance);
 
 
 
