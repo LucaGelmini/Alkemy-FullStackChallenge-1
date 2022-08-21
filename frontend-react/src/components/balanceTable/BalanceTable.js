@@ -3,7 +3,7 @@ import Registry from './Registry';
 import './balanceTable.css'
 
 
-export default function DataTable() {
+export default function BalanceTable() {
   
 
   const[loadingTable, setLoadingTable] = useState(true);

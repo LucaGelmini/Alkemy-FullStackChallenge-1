@@ -1,12 +1,13 @@
 import './App.css';
 
-import DataTable from "./balanceTable/BalanceTable";
+import BalanceTable from "./balanceTable/BalanceTable";
+import Header from './header/Header';
   
 function App() {
     return (
         <div>
-
-            <DataTable />
+            <Header/>
+            <BalanceTable />
         </div>
     )
 }
