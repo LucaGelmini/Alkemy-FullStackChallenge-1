@@ -1,0 +1,10 @@
+.data-grid-row, .data-grid-header-row{
+    border: 2px black solid;
+    display: flex;
+
+}
+.data-grid-cell, .header-data-grid-cell{
+    border-right: 1px black dashed;
+    border-left:  1px black dashed;
+    width: 250px;
+}

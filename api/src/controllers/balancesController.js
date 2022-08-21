@@ -34,6 +34,7 @@ module.exports = {
     // CREATE
     createUserBalance: async(req,res)=>{
         const newRegister = req.body;
+        console.log(req.body,'#######\n\n\n#############')
         const user = Number(req.params.id);
         try{
             const dbFeedback = await db.Balance.create({...newRegister, user_id: user})
