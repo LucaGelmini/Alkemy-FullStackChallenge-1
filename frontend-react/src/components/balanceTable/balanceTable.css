@@ -1,6 +1,7 @@
 .balance-table{
+    margin-top: 20px;
     width: 80%;
-    margin: auto;
+    background-color: #91a2c8;
 }
 .balance-register-container{
     border: solid black 2px;
@@ -12,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     padding: 5px;
     width: 90%;
 
@@ -25,6 +27,7 @@
     background-color:antiquewhite;
     /* border-radius: 5px; */
     box-shadow: 0px 0px 5px 3px black;
+    
 
 }
 
@@ -38,8 +41,18 @@
 .registry-actions{
     display: flex;
     flex-direction: column;
-    width: 10%;
+    width: 5%;
     border-left: 1px black solid;
+}
+.new-registry-form{
+    border: solid black 2px;
+    justify-content: space-between;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.new-registry-form button, .new-registry-form select{
+    cursor: pointer;
 }
 
 .registry-actions div{
@@ -50,15 +63,64 @@
 .registry-amount-input{
     width: 80%;
 }
+.registry-table-amount{
+    font-size: 20px;
+    font-weight: bold;
+}
 .registry-action-button-delete{
-    background-color: red;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid black;
 }
 
 .registry-action-button-edit{
-    background-color: blue;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .registry-action-button-confirm{
-    background-color: green;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.registry-concept p {
+    word-wrap: break-word
+}
+
+.registry-action-button-delete ,
+.registry-action-button-edit,
+.registry-action-button-confirm{
+    padding: 5px;
+}
+
+.registry-action-button-delete:hover,
+.registry-action-button-edit:hover,
+.registry-action-button-confirm:hover{
+    background-color: #ccc;
+}
+.new-registry-button{
+    cursor: pointer;
+    background-color: #406dcc;
+    border: 1px solid black;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 14px;
+    width: 100%;
+
+}
+.new-registry-button:hover{
+    background-color:#758fc6;
+}
+
+
+hr{
+    background-color:black;
+    border: 1px solid black;
 }
 
 @media screen and (min-width: 720px){

@@ -10,7 +10,7 @@ export default function BalanceTable() {
   const[loadingTable, setLoadingTable] = useState(true);
   const [userBalance, setUserBalance] = useState([]);
   useEffect(()=>{
-    async function fetcho(){
+    async function readRegistries(){
 
       const res = await fetch('http://localhost:3000/balances/user-2');
       const data = await res.json()
@@ -18,10 +18,11 @@ export default function BalanceTable() {
       setLoadingTable(false)
     }
     if (loadingTable){
-      fetcho()
+      readRegistries()
     }
     // console.log(userBalance.data)
   }, [userBalance,loadingTable]);
+  
   const addRegister = async (registerValues) => {
     const res = await fetch(`http://localhost:3000/balances/user-2/new`, {
       method: 'post',
@@ -66,8 +67,8 @@ export default function BalanceTable() {
   // console.log(loadingTable)
   return (
     <>
-      <NewRegistry onAdd={addRegister} />
       <div className='balance-table'>
+        <NewRegistry onAdd={addRegister} />
         {
           loadingTable? <h3>Loading...</h3>:
           userBalance.data.map((row)=><Registry key={row.id} data={row} onEdit={updateRegister} onDelete={deleteRegister}/> )
