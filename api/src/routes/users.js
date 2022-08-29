@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database/models')
+const userController = require('../controllers/usersController')
+const authMiddleware = require('../middlewares/auth')
 
-/* GET users listing. */
-router.get('/', (req, res)=> res.send('Users API - endpoints:\n<ul><li><a href="http://localhost:3000/users/findall">findall</a></li></ul>'))
 
-router.get('/findall', async function(req, res) {
-  const users = await db.User.findAll()
-  res.status(200).json({data: users, status: 200})
-});
-
-router.get('/:id', async function(req, res){
-  const id = req.params.id;
-  const user = await db.User.findByPk(id)
-  res.status(200).json({data: user, status: 200})
-})
+// GET LOGIN TOKEN
+router.post('/login', authMiddleware, userController.login)
+// READ an user
+router.get('/', userController.get)
+// CREATE an user
+router.post('/register', userController.register)
+// EDIT an user
+router.put('/:id', userController.edit)
+// DELETE an user
+router.delete('/:id', userController.delete)
 module.exports = router;
