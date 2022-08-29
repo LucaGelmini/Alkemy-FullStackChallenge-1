@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 5px;
-    width: 90%;
+    width: 100%;
 
 }
 
@@ -41,7 +41,7 @@
 .registry-actions{
     display: flex;
     flex-direction: column;
-    width: 5%;
+    min-width: 45px;
     border-left: 1px black solid;
 }
 .new-registry-form{
@@ -80,6 +80,7 @@
     cursor: pointer;
 }
 .registry-action-button-confirm{
+    width: 35px;
     display: flex;
     align-items: center;
     cursor: pointer;
