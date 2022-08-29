@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import LoginForm from "./LoginForm/LoginForm";
 
 export default function Home (){
 
     let navigate = useNavigate();
-    
+    const loginContainerRef = useRef()
+
     function logInButtonHandler(){
-        console.log('logInButtonHandler')
-        navigate('/userBalance')
+        console.log( loginContainerRef)
+        loginContainerRef.current.style.visibility = 'visible'
+        // navigate('/userBalance')
 
     }
 
@@ -19,6 +23,9 @@ export default function Home (){
             <div>
                 <a href="/register"><button>Sign In</button></a>
                 <button onClick={logInButtonHandler}>Log In</button>
+            </div>
+            <div style={{backgroundColor: "lightblue"}}>
+                <LoginForm forwardedRef={loginContainerRef} style={{backgroundColor: "lightblue"}}/>
             </div>
         </>
     )
