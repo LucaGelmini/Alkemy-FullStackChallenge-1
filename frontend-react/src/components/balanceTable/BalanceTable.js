@@ -20,18 +20,9 @@ export default function BalanceTable() {
     if (loadingTable) {
       readRegistries()
     }
-    if (typeof userBalance.data == Array) {
-
-      // console.log('hola',userBalance.data.map(e => e.record_date))
-    } else {
-      console.log(typeof userBalance.data)
-      console.log(userBalance.data)
-    }
-    // console.log(userBalance.data)
   }, [userBalance, loadingTable]);
 
   const addRegister = async (registerValues) => {
-    console.log(registerValues.record_date)
     const res = await fetch(`http://localhost:3000/balances/user-2/new`, {
       method: 'post',
       headers: {
@@ -45,7 +36,6 @@ export default function BalanceTable() {
   }
 
   const updateRegister = async (registerValues, currentAmount, currentConcept, currentRecordDate) => {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', currentRecordDate)
     const res = await fetch(`http://localhost:3000/balances/user-2/edit/${registerValues.id}`, {
       method: 'put',
       headers: {
@@ -73,7 +63,6 @@ export default function BalanceTable() {
   }
 
 
-  // console.log(loadingTable)
   return (
     <>
       <div className='balance-table'>

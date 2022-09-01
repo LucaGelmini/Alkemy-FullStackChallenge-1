@@ -2,20 +2,36 @@ const db = require('../database/models');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
 module.exports = {
     login: async (req, res) => {
 
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>', req.body.userOrEmail.username);
+        const { userInfo } = req
 
 
         const token = jwt.sign(
-            { user_id: userInfo.id, email: userInfo.email, username: userInfo.username },
+            {
+                userData: {
+                    user_id: userInfo.id,
+                    email: userInfo.email,
+                    username: userInfo.username
+                },
+                fingerprint: req.fingerprint
+            },
             'secret0-de-Luca',
             {
                 expiresIn: "2h",
             }
         );
-        res.status(202).json({ userInfo, token })
+        console.log(token)
+        res.status(202).json({
+            userData: {
+                user_id: userInfo.id,
+                email: userInfo.email,
+                username: userInfo.username
+            },
+            token
+        })
     },
 
     get: async (req, res) => {

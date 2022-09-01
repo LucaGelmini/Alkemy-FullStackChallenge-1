@@ -6,6 +6,7 @@ const authMiddleware = require('../middlewares/auth')
 
 // GET LOGIN TOKEN
 router.post('/login', authMiddleware, userController.login)
+
 // READ an user
 router.get('/', userController.get)
 // CREATE an user

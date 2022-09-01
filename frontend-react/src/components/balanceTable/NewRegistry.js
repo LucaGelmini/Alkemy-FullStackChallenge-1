@@ -11,7 +11,6 @@ const NewRegistry = ({ onAdd }) => {
 
     const handleAdd = (e) => {
         e.preventDefault()
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', record_date)
         onAdd({ amount, concept, record_date, type_id: type })
         setOpenForm(false)
 

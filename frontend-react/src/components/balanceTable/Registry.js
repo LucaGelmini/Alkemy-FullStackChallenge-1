@@ -33,10 +33,10 @@ export default function Registry({ data: { id, concept, amount, record_date, ope
     }
 
     function dateTimeFormater(dateTime) {
-        console.log('xxxxxxxxxxxxxxxxxxxxxx', dateTime)
         try {
             dateTime = dateTime.slice(0, 19);
-            const [date, time] = dateTime.split('T');
+            const splited = dateTime.split('T');
+            const date = splited[0]
             const [year, month, day] = date.split('-');
             return (`${day}/${month}/${year}`)
 
