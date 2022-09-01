@@ -33,10 +33,20 @@ export default function Registry({data: {id,concept, amount,record_date,operatio
     }
 
     function dateTimeFormater(dateTime){
-        dateTime = dateTime.slice(0,19);
-        const [date, time] = dateTime.split('T');
-        const [year, month, day] = date.split('-');
-        return (`${day}/${month}/${year}, ${time}`)
+        try{
+            dateTime = dateTime.slice(0,19);
+            const [date, time] = dateTime.split('T');
+            const [year, month, day] = date.split('-');
+            return (`${day}/${month}/${year}, ${time}`)
+
+        }catch(err){
+            if(dateTime===null) {
+                // return null;
+                console.error('no date value');
+            }
+            console.error(err)
+            return null
+        }
     }
 
 
@@ -76,7 +86,7 @@ export default function Registry({data: {id,concept, amount,record_date,operatio
                     <input 
                         type='datetime-local'
                         defaultValue={registerValues.record_date.slice(0,19)}
-                        onChange={e => setCurrentRecordDate(e.target.value)}
+                        onChange={e => {setCurrentRecordDate(e.target.value===''?null:e.target.value)}}
                         />:
                     <p>{dateTimeFormater(registerValues.record_date)}</p>}
                     
