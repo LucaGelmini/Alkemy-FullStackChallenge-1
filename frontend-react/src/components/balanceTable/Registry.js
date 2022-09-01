@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Registry({data: {id,concept, amount,record_date,operationType:{type}}, onEdit, onDelete}){
+export default function Registry({ data: { id, concept, amount, record_date, operationType: { type } }, onEdit, onDelete }) {
     const [isEditable, setIsEditable] = useState(false)
     const [currentAmount, setCurrentAmount] = useState(amount)
     const [currentConcept, setCurrentConcept] = useState(concept)
@@ -19,7 +19,7 @@ export default function Registry({data: {id,concept, amount,record_date,operatio
         operationType: type
     }
 
-    function handleEdit(){
+    function handleEdit() {
         if (isEditable) {
             onEdit(registerValues, currentAmount, currentConcept, currentRecordDate)
             setIsEditable(false)
@@ -32,39 +32,40 @@ export default function Registry({data: {id,concept, amount,record_date,operatio
         onDelete(id)
     }
 
-    function dateTimeFormater(dateTime){
-        try{
-            dateTime = dateTime.slice(0,19);
+    function dateTimeFormater(dateTime) {
+        console.log('xxxxxxxxxxxxxxxxxxxxxx', dateTime)
+        try {
+            dateTime = dateTime.slice(0, 19);
             const [date, time] = dateTime.split('T');
             const [year, month, day] = date.split('-');
-            return (`${day}/${month}/${year}, ${time}`)
+            return (`${day}/${month}/${year}`)
 
-        }catch(err){
-            if(dateTime===null) {
+        } catch (err) {
+            if (dateTime === null) {
                 // return null;
                 console.error('no date value');
             }
             console.error(err)
-            return null
+            return dateTime
         }
     }
 
 
-    return(
+    return (
         <div className="balance-register-container">
             <div className="balance-register-main">
                 <div className="registry-amount-container">
-                    {isEditable? <input
+                    {isEditable ? <input
                         type='numeric'
-                        className={'registry-amount-input editable'} 
+                        className={'registry-amount-input editable'}
                         value={currentAmount}
                         placeholder='Amount'
                         onChange={e => setCurrentAmount(e.target.value)}
-                        /> : <div 
-                            className={`registry-table-amount ${registerValues.operationType === 'expenses'? 'expenses' : 'incomes'}`}
-                        >
-                            {registerValues.amount} $
-                        </div>
+                    /> : <div
+                        className={`registry-table-amount ${registerValues.operationType === 'expenses' ? 'expenses' : 'incomes'}`}
+                    >
+                        {registerValues.amount} $
+                    </div>
                     }
                     <hr></hr>
                     <div>{registerValues.operationType}</div>
@@ -72,33 +73,33 @@ export default function Registry({data: {id,concept, amount,record_date,operatio
                 </div>
 
                 <div className="registry-concept">
-                    {isEditable?
-                    <input
-                        type='text'
-                        defaultValue={registerValues.concept}
-                        onChange={e => setCurrentConcept(e.target.value)}
-                    />:
-                    <p>Concept: {registerValues.concept}</p>}
+                    {isEditable ?
+                        <input
+                            type='text'
+                            defaultValue={registerValues.concept}
+                            onChange={e => setCurrentConcept(e.target.value)}
+                        /> :
+                        <p>Concept: {registerValues.concept}</p>}
                 </div>
 
                 <div className="registry-date">
-                    {isEditable?
-                    <input 
-                        type='datetime-local'
-                        defaultValue={registerValues.record_date.slice(0,19)}
-                        onChange={e => {setCurrentRecordDate(e.target.value===''?null:e.target.value)}}
-                        />:
-                    <p>{dateTimeFormater(registerValues.record_date)}</p>}
-                    
+                    {isEditable ?
+                        <input
+                            type='date'
+                            defaultValue={registerValues.record_date.slice(0, 19)}
+                            onChange={e => { setCurrentRecordDate(e.target.value === '' ? null : e.target.value) }}
+                        /> :
+                        <p>{dateTimeFormater(registerValues.record_date)}</p>}
+
                 </div>
             </div>
 
             <div className="registry-actions">
-                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete"/></div>
-                {isEditable?
-                <div className="registry-action-button-confirm" onClick={handleEdit}><img src="check.svg" alt="confirm"style={{width: '100%'}}/></div>:
-                <div className="registry-action-button-edit"  onClick={handleEdit}><img src="pencil.svg" alt="update" /></div>}
-                
+                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete" /></div>
+                {isEditable ?
+                    <div className="registry-action-button-confirm" onClick={handleEdit}><img src="check.svg" alt="confirm" style={{ width: '100%' }} /></div> :
+                    <div className="registry-action-button-edit" onClick={handleEdit}><img src="pencil.svg" alt="update" /></div>}
+
             </div>
         </div>
     )
