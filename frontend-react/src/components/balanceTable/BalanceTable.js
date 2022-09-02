@@ -33,13 +33,14 @@ export default function BalanceTable() {
 
   // add one register
   const addRegister = async (registerValues) => {
-    const res = await fetch(`http://localhost:3000/balances/user-2/new`, {
+    const res = await fetch(`http://localhost:3000/balances/new`, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'token': JSON.stringify(userFromSession().token)
       },
       mode: 'cors',
-      body: JSON.stringify({ registerValues, token: userFromSession().token })
+      body: JSON.stringify({ registerValues })
     })
     const data = await res.json()
     setUserBalance(data)
@@ -49,7 +50,8 @@ export default function BalanceTable() {
     const res = await fetch(`http://localhost:3000/balances/edit/${registerValues.id}`, {
       method: 'put',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'token': JSON.stringify(userFromSession().token)
       },
       mode: 'cors',
       body: JSON.stringify({
@@ -57,7 +59,6 @@ export default function BalanceTable() {
         amount: currentAmount,
         concept: currentConcept,
         record_date: currentRecordDate,
-        token: userFromSession().token
       })
     })
     const data = await res.json()

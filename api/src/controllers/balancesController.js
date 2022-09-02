@@ -30,9 +30,7 @@ const findAllRegistersSQL = async (userId) => {
 module.exports = {
     // READ
     userBalance: async (req, res) => {
-        const decoded = jwt.verify(JSON.parse(req.headers.token), 'secret0-de-Luca')
-        const userId = decoded.userData.user_id;
-
+        const userId = req.logedUser.user_id
         try {
             const userBalance = await findAllRegistersSQL(userId)
             res.status(200).json({
@@ -43,8 +41,7 @@ module.exports = {
     },
     // CREATE
     createUserBalance: async (req, res) => {
-        const decoded = jwt.verify(req.body.token, 'secret0-de-Luca')
-        const userId = decoded.userData.user_id;
+        const userId = req.logedUser.user_id
         const newRegister = req.body.registerValues;
         try {
             await db.Balance.create({ ...newRegister, user_id: userId })
@@ -55,8 +52,7 @@ module.exports = {
     // DESTROY
     destroyUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        const decoded = jwt.verify(JSON.parse(req.headers.token), 'secret0-de-Luca')
-        const userId = decoded.userData.user_id;
+        const userId = req.logedUser.user_id
         try {
             await db.Balance.destroy({
                 where: {
@@ -70,8 +66,7 @@ module.exports = {
     // EDIT
     editUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        const decoded = jwt.verify(req.body.token, 'secret0-de-Luca');
-        const userId = decoded.userData.user_id;
+        const userId = req.logedUser.user_id
         try {
             await db.Balance.update({
                 concept: req.body.concept,

@@ -8,7 +8,6 @@ module.exports = {
 
         const { userInfo } = req
 
-
         const token = jwt.sign(
             {
                 userData: {
@@ -23,7 +22,6 @@ module.exports = {
                 expiresIn: "2h",
             }
         );
-        console.log(token)
         res.status(202).json({
             userData: {
                 user_id: userInfo.id,

@@ -1,9 +1,10 @@
 .balance-table{
     margin-top: 20px;
     width: 80%;
-    background-color: #91a2c8;
+    background-color: white;
 }
 .balance-register-container{
+    background-color: #91a2c8;
     border: solid black 2px;
     display: flex;
     justify-content: space-between;
@@ -112,6 +113,7 @@
     /* display: inline-block; */
     font-size: 14px;
     width: 100%;
+    margin-bottom: 5px;
 
 }
 .new-registry-button:hover{
