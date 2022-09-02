@@ -1,20 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import BalanceTable from "./balanceTable/BalanceTable";
 import Header from './header/Header';
 import Home from './Home';
 import RegisterForm from './registerForm/RegisterFrom';
-  
+import UserBalance from './UserBalance';
+
 function App() {
     return (
         <BrowserRouter>
             <div>
-                <Header/>
+                <Header />
                 <main>
                     <Routes>
                         <Route path='register' element={<RegisterForm />} />
-                        <Route path='/userBalance' element={<BalanceTable />}/>
+                        <Route path='/userBalance' element={<UserBalance />} />
                         <Route path='/' element={<Home />} ></Route>
 
                     </Routes>
@@ -24,5 +24,5 @@ function App() {
         </BrowserRouter>
     )
 }
-  
+
 export default App;

@@ -9,10 +9,19 @@ export default function BalanceTable() {
 
   const [loadingTable, setLoadingTable] = useState(true);
   const [userBalance, setUserBalance] = useState([]);
+  const userFromSession = () => JSON.parse(sessionStorage.getItem('currentUser'));
+
+  // Read all table in db for create and update
   useEffect(() => {
     async function readRegistries() {
-
-      const res = await fetch('http://localhost:3000/balances/user-2');
+      const res = await fetch('http://localhost:3000/balances/get', {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': JSON.stringify(userFromSession().token)
+        },
+        mode: 'cors',
+      });
       const data = await res.json()
       setUserBalance(data)
       setLoadingTable(false)
@@ -22,6 +31,7 @@ export default function BalanceTable() {
     }
   }, [userBalance, loadingTable]);
 
+  // add one register
   const addRegister = async (registerValues) => {
     const res = await fetch(`http://localhost:3000/balances/user-2/new`, {
       method: 'post',
@@ -29,14 +39,14 @@ export default function BalanceTable() {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      body: JSON.stringify(registerValues)
+      body: JSON.stringify({ registerValues, token: userFromSession().token })
     })
     const data = await res.json()
     setUserBalance(data)
   }
 
   const updateRegister = async (registerValues, currentAmount, currentConcept, currentRecordDate) => {
-    const res = await fetch(`http://localhost:3000/balances/user-2/edit/${registerValues.id}`, {
+    const res = await fetch(`http://localhost:3000/balances/edit/${registerValues.id}`, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +56,8 @@ export default function BalanceTable() {
         ...registerValues,
         amount: currentAmount,
         concept: currentConcept,
-        record_date: currentRecordDate
+        record_date: currentRecordDate,
+        token: userFromSession().token
       })
     })
     const data = await res.json()
@@ -54,9 +65,13 @@ export default function BalanceTable() {
   }
 
   const deleteRegister = async (id) => {
-    const res = await fetch(`http://localhost:3000/balances/user-2/delete/${id}`, {
+    const res = await fetch(`http://localhost:3000/balances/delete/${id}`, {
       method: 'delete',
       mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'token': JSON.stringify(userFromSession().token)
+      }
     })
     const data = await res.json()
     setUserBalance(data)

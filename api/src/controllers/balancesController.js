@@ -1,6 +1,7 @@
 const { Sequelize } = require('../database/models');
 const db = require('../database/models');
 const { dbErrorsHandler } = require('./utils/balancesController');
+const jwt = require("jsonwebtoken");
 
 const userBalanceSqlLiteral = `
 CASE
@@ -29,7 +30,9 @@ const findAllRegistersSQL = async (userId) => {
 module.exports = {
     // READ
     userBalance: async (req, res) => {
-        const userId = req.params.id;
+        const decoded = jwt.verify(JSON.parse(req.headers.token), 'secret0-de-Luca')
+        const userId = decoded.userData.user_id;
+
         try {
             const userBalance = await findAllRegistersSQL(userId)
             res.status(200).json({
@@ -40,32 +43,35 @@ module.exports = {
     },
     // CREATE
     createUserBalance: async (req, res) => {
-        const user = Number(req.params.userId);
-        const newRegister = req.body;
+        const decoded = jwt.verify(req.body.token, 'secret0-de-Luca')
+        const userId = decoded.userData.user_id;
+        const newRegister = req.body.registerValues;
         try {
-            await db.Balance.create({ ...newRegister, user_id: user })
-            const balance = await findAllRegisters(user)
+            await db.Balance.create({ ...newRegister, user_id: userId })
+            const balance = await findAllRegistersSQL(userId)
             res.status(200).json({ data: balance, status: 200 })
         } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     },
     // DESTROY
     destroyUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        const userId = req.params.userId
+        const decoded = jwt.verify(JSON.parse(req.headers.token), 'secret0-de-Luca')
+        const userId = decoded.userData.user_id;
         try {
             await db.Balance.destroy({
                 where: {
                     id: balanceId
                 }
             })
-            const balance = await findAllRegisters(userId)
+            const balance = await findAllRegistersSQL(userId)
             res.status(200).json({ data: balance, status: 200 })
         } catch (e) { res.status(500).json(dbErrorsHandler(e)) }
     },
     // EDIT
     editUserBalance: async (req, res) => {
         const balanceId = req.params.id;
-        const userId = req.params.userId
+        const decoded = jwt.verify(req.body.token, 'secret0-de-Luca');
+        const userId = decoded.userData.user_id;
         try {
             await db.Balance.update({
                 concept: req.body.concept,
@@ -73,7 +79,7 @@ module.exports = {
                 user_id: req.body.user_id,
                 record_date: req.body.record_date
             }, { where: { id: balanceId } });
-            const balance = await findAllRegisters(userId)
+            const balance = await findAllRegistersSQL(userId)
 
             res.status(200).json({ data: balance, status: 200 })
         } catch (e) { res.status(500).json(dbErrorsHandler(e)) }

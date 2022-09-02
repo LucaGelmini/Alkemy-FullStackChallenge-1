@@ -36,8 +36,8 @@ export default function LoginForm(props) {
             })
         })
         const data = await res.json()
-        sessionStorage.setItem({ currentUser: data })
-            (res.status === 202) && (navigate('/userBalance', { replace: true }))
+        sessionStorage.setItem('currentUser', JSON.stringify(data));
+        (res.status === 202) && (navigate('/userBalance', { replace: true }))
 
     }
 
