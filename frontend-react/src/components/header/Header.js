@@ -5,7 +5,7 @@ export default function Header(props) {
         <header className="main-header">
             <div className='logo-container'>
                 <a href='/'>
-                    <img className="logo" src="./stonks.png" alt="stonks" />
+                    {/* <img className="logo" src="./stonks.png" alt="stonks" /> */}
                 </a>
             </div>
             <div className='header-title-container'>

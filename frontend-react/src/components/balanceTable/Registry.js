@@ -95,11 +95,11 @@ export default function Registry({ data: { id, concept, amount, record_date, ope
             </div>
 
             <div className="registry-actions">
-                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete" /></div>
                 {isEditable ?
                     <div className="registry-action-button-confirm" onClick={handleEdit}><img src="check.svg" alt="confirm" style={{ width: '100%' }} /></div> :
                     <div className="registry-action-button-edit" onClick={handleEdit}><img src="pencil.svg" alt="update" /></div>}
 
+                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete" /></div>
             </div>
         </div>
     )

@@ -1,14 +1,17 @@
 .main-header{
     display: flex;
     flex-direction: row;
-    background-color: #406dcc;
+    background-color: #1a2930;
     height: 60px;
     justify-content: space-between;
+    color: #dadada;
+    align-items: center;
 }
 
 h1{
     font-size: 22px;
     text-align: center;
+    
 }
 
 .logo-container{
