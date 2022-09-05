@@ -21,28 +21,27 @@ const NewRegistry = ({ onAdd }) => {
             {
                 openForm ?
                     <form className="new-registry-form" onSubmit={handleAdd}>
-                        <label htmlFor="Amount">Amount</label>
+
                         <input
                             name="Amount"
                             type="text"
                             placeholder='Amount'
-                            value={amount}
+                            // value={amount}
                             onChange={e => setAmount(e.target.value)}
                             required
                         ></input>
-                        <label htmlFor="Concept">Concepto</label>
 
                         <input
                             name="Concept"
                             type="text"
                             placeholder='Concept'
                             maxLength={30}
-                            value={concept}
+                            // value={concept}
                             onChange={e => setConcept(e.target.value)}
                             required
                         ></input>
 
-                        <label htmlFor="record_date">Fecha</label>
+                        <label htmlFor="record_date">Date</label>
                         <input
                             name="record_date"
                             type="date"
