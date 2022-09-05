@@ -7,7 +7,7 @@ function authorization(req, res, next) {
             'secret0-de-Luca');
         if (fingerprint.hash != req.fingerprint.hash) throw 'Invalid fingerprint';
         req.logedUser = userData;
-        console.log(req.logedUser)
+        // console.log(req.logedUser)
 
         next();
     } catch (err) {

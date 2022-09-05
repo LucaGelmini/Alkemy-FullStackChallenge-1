@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const db = require('../database/models')
 
 
-async function authenticationMiddleware(req, res, next) {
+async function authentication(req, res, next) {
     // is an eMail or a username?
     function userOrEmail(email, username) {
         if (email) return { email };
@@ -34,4 +34,4 @@ async function authenticationMiddleware(req, res, next) {
 
 }
 
-module.exports = authenticationMiddleware;
+module.exports = authentication;

@@ -1,6 +1,7 @@
 const db = require('../database/models');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { validationResult } = require('express-validator');
 
 
 module.exports = {
@@ -39,16 +40,17 @@ module.exports = {
             // console.log(user)
             const userData = await db.User.findByPk(user.user_id)
             res.status(200).json({ data: userData })
-            console.log(req.fingerprint)
+            // console.log(req.fingerprint)
         } catch { console.log('token error') }
     },
 
     register: async (req, res) => {
+        const validation = validationResult(req);
         const { name, password, family_name, username, email } = req.body;
-        const hashedPass = await bcrypt.hash(password, 10)
-        console.log({ data: { ...req.body, hashedPass: hashedPass } })
-        res.status(201).json({ data: { ...req.body, hashedPass: hashedPass } })
+
         try {
+            if (validation.errors.length > 0) throw validation.errors;
+            const hashedPass = await bcrypt.hash(password, 10);
             await db.User.create({
                 name,
                 family_name,
@@ -56,8 +58,12 @@ module.exports = {
                 password: hashedPass,
                 email
             })
+            res.status(201).json({ data: { ...req.body } })
 
-        } catch (err) { console.error(err); }
+        } catch (err) {
+            console.error({ registerErrors: err });
+            res.status(422).json({ errors: err })
+        }
 
     },
 
