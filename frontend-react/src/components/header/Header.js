@@ -3,11 +3,11 @@ import './header.css'
 export default function Header(props) {
     return (
         <header className="main-header">
-            <a href='/'>
-                <div className='logo-container'>
+            <div className='logo-container'>
+                <a href='/'>
                     <img className="logo" src="./logo.svg" alt="logo" />
-                </div>
-            </a>
+                </a>
+            </div>
             <div className='header-title-container'>
                 <h1>Personal Balance</h1>
             </div>
