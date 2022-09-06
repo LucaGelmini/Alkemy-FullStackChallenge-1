@@ -34,4 +34,9 @@ h1{
 }
 .header-usergreatings-container{
     width: 20%;
+    padding: 10px;
+}
+.header-usergreatings-container * {
+    overflow-wrap: break-word;
+    font-size: 12px;
 }
