@@ -20,7 +20,7 @@ const signInValidation = [
     body('confirmPassword')
         .notEmpty()
         .custom((value, { req }) => {
-            if (value != req.password) throw new Error("confirmed password doesn't match");
+            if (value != req.body.password) throw new Error("confirmed password doesn't match");
             return true
         }),
     // body('userfile')
