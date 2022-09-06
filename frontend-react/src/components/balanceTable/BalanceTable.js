@@ -40,7 +40,7 @@ export default function BalanceTable() {
         'token': JSON.stringify(userFromSession().token)
       },
       mode: 'cors',
-      body: JSON.stringify({ registerValues })
+      body: JSON.stringify({ ...registerValues })
     })
     const data = await res.json()
     setUserBalance(data)
@@ -55,10 +55,9 @@ export default function BalanceTable() {
       },
       mode: 'cors',
       body: JSON.stringify({
-        ...registerValues,
         amount: currentAmount,
         concept: currentConcept,
-        record_date: currentRecordDate,
+        record_date: currentRecordDate.slice(0, 10),
       })
     })
     const data = await res.json()

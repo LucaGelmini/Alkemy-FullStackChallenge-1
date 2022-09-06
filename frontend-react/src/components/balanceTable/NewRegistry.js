@@ -50,7 +50,9 @@ const NewRegistry = ({ onAdd }) => {
                             onChange={e => setDate(e.target.value)}
                         ></input>
 
-                        <select value={type} onChange={e => setType(e.target.value)} required>
+                        <select value={type}
+                            onChange={e => setType(e.target.value)}
+                            required>
                             <option value="1">Income</option>
                             <option value="2">Expense</option>
                         </select>

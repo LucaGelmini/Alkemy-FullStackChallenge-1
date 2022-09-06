@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 function authorization(req, res, next) {
     try {
+        if (!req.headers.token) throw 'Access token required';
         const { userData, fingerprint } = jwt.verify(
             JSON.parse(req.headers.token),
             'secret0-de-Luca');
@@ -12,7 +13,7 @@ function authorization(req, res, next) {
         next();
     } catch (err) {
         console.error(err)
-        res.status(401) // 401: unauthorized
+        res.status(401).json(err) // 401: unauthorized
     }
 
 

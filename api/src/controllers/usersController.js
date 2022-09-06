@@ -23,6 +23,7 @@ module.exports = {
                 expiresIn: "2h",
             }
         );
+        console.log(token);
         res.status(202).json({
             userData: {
                 user_id: userInfo.id,
@@ -48,8 +49,12 @@ module.exports = {
         const validation = validationResult(req);
         const { name, password, family_name, username, email } = req.body;
 
+        if (validation.errors.length > 0) {
+            res.status(422).json({ errors: validation.errors });
+            console.error(validation.errors);
+            return
+        };
         try {
-            if (validation.errors.length > 0) throw validation.errors;
             const hashedPass = await bcrypt.hash(password, 10);
             await db.User.create({
                 name,
@@ -61,8 +66,7 @@ module.exports = {
             res.status(201).json({ data: { ...req.body } })
 
         } catch (err) {
-            console.error({ registerErrors: err });
-            res.status(422).json({ errors: err })
+            res.status(500).json({ errors: err })
         }
 
     },

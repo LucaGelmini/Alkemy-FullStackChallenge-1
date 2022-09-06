@@ -86,7 +86,7 @@ export default function Registry({ data: { id, concept, amount, record_date, ope
                     {isEditable ?
                         <input
                             type='date'
-                            defaultValue={registerValues.record_date.slice(0, 19)}
+                            defaultValue={registerValues.record_date.slice(0, 10)}
                             onChange={e => { setCurrentRecordDate(e.target.value === '' ? null : e.target.value) }}
                         /> :
                         <p>{dateTimeFormater(registerValues.record_date)}</p>}

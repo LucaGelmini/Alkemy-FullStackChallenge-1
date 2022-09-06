@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/usersController');
-const { signInValidation, authorization, authentication } = require('../middlewares');
-// const authenticationMiddleware = require('../middlewares/authentication');
-// const authorizationMiddleware = require('../middlewares/authorization');
-// const { signInValidation, authenticationMiddleware, authorizationMiddleware } = require('../middlewares');
+const { signInValidation, logInValidation, authorization, authentication } = require('../middlewares');
+
 
 
 
 
 
 // GET LOGIN TOKEN
-router.post('/login', authentication, userController.login)
+router.post('/login', logInValidation, authentication, userController.login)
 
 // READ an user
 router.get('/', authorization, userController.get)

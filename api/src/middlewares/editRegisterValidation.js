@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-const newRegisterValidation = [
+const editRegisterValidation = [
     body('amount')
         .notEmpty().bail(),
     body('concept')
@@ -9,9 +9,6 @@ const newRegisterValidation = [
     body('record_date')
         .notEmpty().bail()
         .isDate(),
-    body('type_id')
-        .notEmpty().bail()
-        .isInt({ min: 1, max: 2 })
 ]
 
-module.exports = newRegisterValidation;
+module.exports = editRegisterValidation;
