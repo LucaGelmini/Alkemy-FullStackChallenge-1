@@ -12,7 +12,7 @@ export default function Header(props) {
                 <h1>Personal Balance</h1>
             </div>
             <div className='header-usergreatings-container'>
-                <p>Hi user</p>
+                <p>Wellcome {JSON.parse(sessionStorage.currentUser).userData.username}</p>
             </div>
 
         </header>
