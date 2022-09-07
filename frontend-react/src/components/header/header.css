@@ -40,3 +40,7 @@ h1{
     overflow-wrap: break-word;
     font-size: 12px;
 }
+.logInOut-button{
+    all: unset;
+    cursor: pointer;
+}

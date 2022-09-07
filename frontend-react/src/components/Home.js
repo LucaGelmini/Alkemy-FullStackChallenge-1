@@ -1,13 +1,10 @@
-import { useRef } from "react";
-import LoginForm from "./LoginForm/LoginForm";
+export default function Home(props) {
 
-export default function Home() {
-
-    const loginContainerRef = useRef();
+    const { setLoginwindow } = props;
 
 
     function logInButtonHandler() {
-        loginContainerRef.current.style.visibility = 'visible'
+        setLoginwindow(true);
     }
 
     return (
@@ -19,9 +16,6 @@ export default function Home() {
             <div>
                 <a href="/register"><button>Sign In</button></a>
                 <button onClick={logInButtonHandler}>Log In</button>
-            </div>
-            <div style={{ backgroundColor: "lightblue" }}>
-                <LoginForm forwardedRefs={loginContainerRef} style={{ backgroundColor: "lightblue" }} />
             </div>
         </>
     )
