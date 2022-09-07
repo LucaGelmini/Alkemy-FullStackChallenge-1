@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from 'chart.js';
 
@@ -40,7 +40,6 @@ export default function BalanceChart(props) {
 
     Chart.register(ArcElement);
 
-
     const data = {
         labels: ['Incomes', 'Expenses'],
         datasets: [{
@@ -62,17 +61,37 @@ export default function BalanceChart(props) {
     }
     const options = {
         legend: { display: true },
-
+        onHover: (e, activeElements, chart) => {
+            if (activeElements[0]) {
+                let ctx = activeElements[0].element.$context;
+                let label = chart.data.labels[ctx.dataIndex];
+                let value = chart.data.datasets[0].data[ctx.dataIndex];
+                chartDataOnHoverRef.current.innerText = label + ': ' + value;
+                chartDataOnHoverRef.current.style.visibility = 'visible';
+                chartDataOnHoverRef.current.style.zIndex = 1;
+                setTimeout(() => {
+                    chartDataOnHoverRef.current.style.visibility = 'hidden';
+                }, 2000)
+            }
+        },
         maintainAspectRatio: false,
         cutout: '65%'
     };
 
+    const chartDataOnHoverRef = useRef();
 
     return (
-        <div className="balance-chart-container">
-            <div className="balance-sum">Current balance: ${balanceSum}</div>
-            <Doughnut data={data} options={options} className="doughnut" />
+        <>
+            {loadingTable ? <h3>Loading chart...</h3> :
+                <div className="balance-chart-container">
+                    <div className="balance-sum chart-hover-data" ref={chartDataOnHoverRef} style={{ visibility: 'hidden' }} ></div>
+                    <div className="balance-sum">Current balance: ${balanceSum}</div>
+                    <Doughnut data={data} options={options} className="doughnut" />
 
-        </div>
+                </div>
+
+            }
+
+        </>
     )
 }
