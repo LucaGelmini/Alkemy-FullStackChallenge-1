@@ -25,7 +25,7 @@ function App() {
                 <main>
                     <Routes>
                         <Route path='register' element={<RegisterForm {...{ logedFlag, setLogedFlag }} />} />
-                        <Route path='/userBalance' element={<UserBalance {...{ logedFlag, setLogedFlag }} />} />
+                        <Route path='/userBalance' element={<UserBalance {...{ logedFlag, setLogedFlag, setLoginwindow }} />} />
                         <Route path='/' element={<Home {...{ logedFlag, setLogedFlag, setLoginwindow }} />} ></Route>
 
                     </Routes>

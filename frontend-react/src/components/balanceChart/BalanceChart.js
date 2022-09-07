@@ -47,7 +47,7 @@ export default function BalanceChart(props) {
             data: chartData,
             backgroundColor: [
                 '#417135',
-                '#762B2A',
+                '#B53230',
 
             ],
             borderColor: [

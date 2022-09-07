@@ -44,7 +44,9 @@
 .registry-actions{
     display: flex;
     flex-direction: column;
-    min-width: 45px;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 32px;
     border-left: 1px black solid;
 }
 .new-registry-form{
@@ -60,7 +62,7 @@
 
 .registry-actions div{
     cursor: pointer;
-    height: 50%;
+    height: 25%;
     overflow: hidden;
 }
 .registry-amount-input{
@@ -102,6 +104,12 @@
     padding: 5px;
 }
 
+.registry-action-button-delete  img,
+.registry-action-button-edit img,
+.registry-action-button-confirm img{
+    height: 100%;
+}
+
 .registry-action-button-delete:hover,
 .registry-action-button-edit:hover,
 .registry-action-button-confirm:hover{
@@ -127,6 +135,18 @@
     background-color: #28756f;
 }
 
+.filer-form{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.filer-form *{
+    margin-left: 5px;
+}
+.filters-container{
+    padding-right: 10px;
+    margin: 5px 0 10px 0;
+}
 
 
 hr{
@@ -134,7 +154,7 @@ hr{
     /* border: 1px solid black; */
 }
 
-@media screen and (min-width: 720px){
+@media screen and (min-width: 550px){
     .balance-register-main{
         flex-direction: row;
     }
