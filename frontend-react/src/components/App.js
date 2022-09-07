@@ -5,7 +5,7 @@ import './App.css';
 import { Header, Home, LoginForm, RegisterForm, UserBalance } from './index';
 
 function App() {
-    const [logedFlag, setLogedFlag] = useState(false);
+    const [logedFlag, setLogedFlag] = useState(sessionStorage.currentUser ? true : false);
     const [loginWindow, setLoginwindow] = useState(false);
 
     useEffect(() => {

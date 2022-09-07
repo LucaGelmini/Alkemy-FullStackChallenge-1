@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Registry from './Registry';
 import NewRegistry from './NewRegistry'
 import './balanceTable.css'
 
 
-export default function BalanceTable() {
+export default function BalanceTable(props) {
 
-
-  const [loadingTable, setLoadingTable] = useState(true);
-  const [userBalance, setUserBalance] = useState([]);
+  const { loadingTable, setLoadingTable, userBalance, setUserBalance } = props;
   const userFromSession = () => JSON.parse(sessionStorage.getItem('currentUser'));
 
   // Read all table in db for create and update
@@ -29,7 +27,7 @@ export default function BalanceTable() {
     if (loadingTable) {
       readRegistries()
     }
-  }, [userBalance, loadingTable]);
+  }, [userBalance, loadingTable, setUserBalance, setLoadingTable]);
 
   // add one register
   const addRegister = async (registerValues) => {

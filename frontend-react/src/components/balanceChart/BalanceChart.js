@@ -1,50 +1,76 @@
 
+import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from 'chart.js';
 
 import './balanceChart.css'
 
-export default function BalanceChart() {
+export default function BalanceChart(props) {
+
+    const { loadingTable, userBalance } = props;
+    const [balanceSum, setBalanceSum] = useState();
+    const [chartData, setChartData] = useState([]);
+    // console.log(userBalance)
+
+    useEffect(() => {
+        if (loadingTable) return;
+        if (!userBalance.data || userBalance.data.length === 0) return;
+
+        const bs = userBalance.data
+            .map((register) => {
+                const signMultiplier = (e) => e.type_id === 1 ? 1 : -1;
+                return register.amount * signMultiplier(register);
+            })
+            .reduce((prev, current,) => prev + current)
+        setBalanceSum(bs);
+
+        const incomesSum = userBalance.data
+            .filter(register => register.type_id === 1)
+            .map((register) => register.amount)
+            .reduce((prev, current) => prev + current, 0);
+
+        const expensesSum = userBalance.data
+            .filter(register => register.type_id === 2)
+            .map((register) => register.amount)
+            .reduce((prev, current) => prev + current, 0);
+        setChartData([incomesSum, expensesSum]);
+
+    }, [userBalance, loadingTable]);
+
+
     Chart.register(ArcElement);
 
 
     const data = {
-        labels: ['OK', 'WARNING', 'CRITICAL', 'UNKNOWN'],
+        labels: ['Incomes', 'Expenses'],
         datasets: [{
-            label: '# of Tomatoes',
-            data: [12, 19, 3, 5],
+            label: 'Personal Balance',
+            data: chartData,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
+                '#417135',
+                '#762B2A',
+
             ],
             borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
+                '#1a2930',
+                '#1a2930',
             ],
-            borderWidth: 1
+            borderWidth: 1,
+
+
         }]
     }
     const options = {
-        legend: {
-            display: true,
-            position: "right"
-        },
-        elements: {
-            arc: {
-                borderWidth: 3
-            }
-        },
-        maintainAspectRatio: false
+        legend: { display: true },
+
+        maintainAspectRatio: false,
+        cutout: '65%'
     };
 
 
     return (
         <div className="balance-chart-container">
-
+            <p>Current balance: ${balanceSum}</p>
             <Doughnut data={data} options={options} />
 
         </div>
