@@ -70,8 +70,8 @@ export default function BalanceChart(props) {
 
     return (
         <div className="balance-chart-container">
-            <p>Current balance: ${balanceSum}</p>
-            <Doughnut data={data} options={options} />
+            <div className="balance-sum">Current balance: ${balanceSum}</div>
+            <Doughnut data={data} options={options} className="doughnut" />
 
         </div>
     )
