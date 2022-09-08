@@ -6,6 +6,10 @@ function resStatusHandler(status, setLogedFlag, navigate) {
             navigate('/');
             alert('Session expired');
             break;
+        case 422:
+            alert('Bad input');
+            window.location.reload();
+            break;
         default:
             break;
     }

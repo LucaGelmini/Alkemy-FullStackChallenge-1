@@ -2,7 +2,8 @@ const { body } = require('express-validator');
 
 const newRegisterValidation = [
     body('amount')
-        .notEmpty().bail(),
+        .notEmpty().bail()
+        .isNumeric(),
     body('concept')
         .notEmpty().bail()
         .isLength({ min: 2 }),

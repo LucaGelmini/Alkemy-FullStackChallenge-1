@@ -10,6 +10,7 @@ export default function UserBalance(props) {
 
     return (
         <div className="balance-page-main">
+            <h2>Wellcome {JSON.parse(sessionStorage.currentUser).userData.username}</h2>
             <BalanceChart {...{ loadingTable, userBalance }} />
             <BalanceTable {...{
                 loadingTable,

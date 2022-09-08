@@ -24,7 +24,7 @@ const NewRegistry = ({ onAdd }) => {
 
                         <input
                             name="Amount"
-                            type="text"
+                            type="number"
                             placeholder='Amount'
                             // value={amount}
                             onChange={e => setAmount(e.target.value)}
@@ -41,7 +41,6 @@ const NewRegistry = ({ onAdd }) => {
                             required
                         ></input>
 
-                        <label htmlFor="record_date">Date</label>
                         <input
                             name="record_date"
                             type="date"

@@ -21,7 +21,7 @@
 }
 .submit-button:hover{
     transition: 1s;
-    background-color: rgb(27, 142, 209);
+    background-color: #1c4e4a;
     color: white;
 }
 
