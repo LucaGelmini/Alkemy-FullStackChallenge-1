@@ -1,16 +1,41 @@
 import { useState } from "react";
+import './registerForm.css'
+import formValidation from "./utils/formValidation";
 
 export default function RegisterForm() {
     const [inputs, setInputs] = useState([])
 
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+
+        const error = formValidation(name, value);
+
+        if (error) {
+            event.target.className = 'form-input-error'
+            return
+        }
+        event.target.className = 'form-input-success'
+
         setInputs(values => ({ ...values, [name]: value }))
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const validationErrors = [...event.target].map(e => formValidation(e.name, e.value))
+        if (event.target.password.value !== event.target.confirmPassword.value) {
+            validationErrors.push("'confirmPassword' doesn't match with passowrd")
+        }
+        if (validationErrors.length > 0) {
+            alert(
+                validationErrors.reduce((prev, curr) => {
+                    if (!curr) return String(prev)
+                    return String(prev) + '\n' + String(curr)
+                })
+            );
+            return
+        }
         const res = await fetch('http://localhost:3000/users/register',
             {
                 method: 'post',
@@ -25,38 +50,25 @@ export default function RegisterForm() {
 
 
     return (
-        <form
-            className="formulario-register"
-            action="/users/register"
-            method="POST"
-            name="formulario-registro"
-            encType="multipart/form-data"
-            onSubmit={handleSubmit}>
-            <h2>Sign in</h2>
+        <div className="register-form-container">
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="name">Name</label>
-                <input className="input-texto" type="text" id="name" name="name" placeholder="Name" onChange={handleChange} />
-            </div>
+            <form
+                className="register-form"
+                name="register-form"
+                onSubmit={handleSubmit}>
+                <h2>Sign in</h2>
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="family-name">Family name</label>
-                <input className="input-texto" type="text" id="family-name" name="family-name" placeholder="Family name" onChange={handleChange} />
-            </div>
+                <input className="form-input" type="text" name="name" placeholder="Name" onChange={handleChange} />
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="username">Username</label>
-                <input className="input-texto" type="text" id="username" name="username" placeholder="Username" onChange={handleChange} />
-            </div>
+                <input className="form-input" type="text" name="family-name" placeholder="Family name" onChange={handleChange} />
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="email">E-mail</label>
-                <input className="input-texto" type="email" id="email" name="email" placeholder="Email" onChange={handleChange} />
-            </div>
+                <input className="form-input" type="text" name="username" placeholder="Username" onChange={handleChange} />
+
+                <input className="form-input" type="email" name="email" placeholder="Email" onChange={handleChange} />
 
 
 
-            {/* <div className="input-control image-preview-containter" id="input-control">
+                {/* <div className="input-control image-preview-containter" id="input-control">
                 <img alt="Foto de perfil" id="preview-usr-image"
                  className="preview-image-register" src="/img/users/default-user-image.png" />
                 <label className="label-header image-upload-button">
@@ -65,21 +77,16 @@ export default function RegisterForm() {
                 </label>
             </div> */}
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="password">Password</label>
-                <input className="input-texto" type="password" id="password" name="password" placeholder="password" onChange={handleChange} />
-            </div>
+                <input className="form-input" type="password" name="password" placeholder="password" onChange={handleChange} />
 
-            <div className="input-control" id="input-control">
-                <label className="label-header" htmlFor="confirmPassword">Confirm password</label>
-                <input className="input-texto" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" onChange={handleChange} />
-            </div>
+                <input className="form-input" type="password" name="confirmPassword" placeholder="Confirm password" onChange={handleChange} />
 
 
-            <div className="botones-register">
-                <button type="submit"><p>Enviar</p></button>
-                <button type="reset">Borrar</button>
-            </div>
-        </form>
+                <div className="botones-register">
+                    <button type="submit"><p>Enviar</p></button>
+                    <button type="reset">Borrar</button>
+                </div>
+            </form>
+        </div>
     )
 } 

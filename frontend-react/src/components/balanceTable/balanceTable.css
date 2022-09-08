@@ -4,10 +4,12 @@
     background-color: white;
 }
 .balance-register-container{
-    background-color: #91a2c8;
-    border: solid black 2px;
+    background-color: #c5c1c0;
+    /* border: solid black 2px; */
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
+    border-radius: 15px;
     
 }
 .balance-register-main{
@@ -15,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
 
 }
@@ -42,11 +44,13 @@
 .registry-actions{
     display: flex;
     flex-direction: column;
-    min-width: 45px;
+    justify-content: space-around;
+    align-items: center;
     border-left: 1px black solid;
+    
 }
 .new-registry-form{
-    border: solid black 2px;
+    /* border: solid black 2px; */
     justify-content: space-between;
     font-size: 12px;
     display: flex;
@@ -60,6 +64,7 @@
     cursor: pointer;
     height: 50%;
     overflow: hidden;
+    width: 100%;
 }
 .registry-amount-input{
     width: 80%;
@@ -72,19 +77,22 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    border-bottom: 1px solid black;
+    border-radius:  0 0 15px 0;
+    
 }
 
 .registry-action-button-edit{
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-radius:  0 15px 0 0;
 }
 .registry-action-button-confirm{
     width: 35px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-radius:  0 15px 0 0;
 }
 
 .registry-concept p {
@@ -97,37 +105,59 @@
     padding: 5px;
 }
 
+.registry-action-button-delete  img,
+.registry-action-button-edit img,
+.registry-action-button-confirm img{
+    width: 30px;
+}
+
 .registry-action-button-delete:hover,
 .registry-action-button-edit:hover,
 .registry-action-button-confirm:hover{
     background-color: #ccc;
 }
 .new-registry-button{
+    border: none;
     cursor: pointer;
-    background-color: #406dcc;
-    border: 1px solid black;
+    background-color: #1c4e4a;
+    /* border: 1px solid black; */
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     /* display: inline-block; */
-    font-size: 14px;
+    font-size: 18px;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    border-radius: 15px;
 
 }
 .new-registry-button:hover{
-    background-color:#758fc6;
+    background-color: #28756f;
+}
+
+.filer-form{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.filer-form *{
+    margin-left: 5px;
+}
+.filters-container{
+    padding-right: 10px;
+    margin: 5px 0 10px 0;
 }
 
 
 hr{
     background-color:black;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
-@media screen and (min-width: 720px){
+@media screen and (min-width: 550px){
     .balance-register-main{
         flex-direction: row;
     }
+
 }

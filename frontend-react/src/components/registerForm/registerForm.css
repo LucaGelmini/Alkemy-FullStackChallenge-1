@@ -1,0 +1,30 @@
+.register-form-container{
+    height: 90vh;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    width: 70vw;
+}
+.form-input,.form-input-success,.form-input-error{
+    height: 3rem;
+    background-color: rgb(197, 197, 197);
+    border-radius: 10px;
+    margin: 10px;
+}
+.form-input{
+    border: 2px black solid;
+}
+.form-input-success{
+    border: 2px green solid;
+}
+.form-input-error{
+    border: 2px red solid;
+}
+
+
+.form-input::placeholder{
+    color: #222;
+}

@@ -1,26 +1,46 @@
 .main-header{
     display: flex;
     flex-direction: row;
-    background-color: #406dcc;
-    height: 60px;
+    background-color: #1a2930;
+    height: 10vh;
     justify-content: space-between;
+    color: #dadada;
+    align-items: center;
 }
 
 h1{
     font-size: 22px;
     text-align: center;
+    
 }
 
 .logo-container{
-    width: 20%;
-}
-.logo{
+    width: 20vw;
     height: 100%;
-    object-fit:scale-down;
+}
+.logo-container a{
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    object-fit: cover;
+    height: 50%;
 }
 .header-title-container{
     width: 60%;
 }
 .header-usergreatings-container{
     width: 20%;
+    padding: 10px;
+}
+.header-usergreatings-container * {
+    overflow-wrap: break-word;
+    font-size: 12px;
+}
+.logInOut-button{
+    all: unset;
+    cursor: pointer;
 }

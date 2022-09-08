@@ -1,28 +1,26 @@
-import { useRef } from "react";
-import LoginForm from "./LoginForm/LoginForm";
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function Home(props) {
 
-    const loginContainerRef = useRef();
+    const { setLoginwindow } = props;
+    const navigate = useNavigate();
 
 
-    function logInButtonHandler() {
-        loginContainerRef.current.style.visibility = 'visible'
-    }
 
     return (
-        <>
-            <div>
-                <h1>Stonks!</h1>
-                <h2>Keep control of your stonks</h2>
+        <div className='home'>
+            <div className="home-message-container">
+                <h2 className="home-main-message" >Keep track of your personal expenses and incomes!</h2>
+                <p className="home-secondary-message" >Don't loose control of your money. Save, edit and delete your movements anytime anywhere.</p>
             </div>
-            <div>
-                <a href="/register"><button>Sign In</button></a>
-                <button onClick={logInButtonHandler}>Log In</button>
+            <div className="sample-img-container">
+                <img src="smartphone.png" className="sample-img" alt="smartphone" />
+
             </div>
-            <div style={{ backgroundColor: "lightblue" }}>
-                <LoginForm forwardedRefs={loginContainerRef} style={{ backgroundColor: "lightblue" }} />
+            <div className="home-buttons-container" >
+                <button className='login-button' onClick={() => setLoginwindow(true)}>Log In</button>
+                <button className='signin-button' onClick={() => navigate("/register")}>Sign In</button>
             </div>
-        </>
+        </div>
     )
 }

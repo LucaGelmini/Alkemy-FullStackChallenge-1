@@ -86,7 +86,7 @@ export default function Registry({ data: { id, concept, amount, record_date, ope
                     {isEditable ?
                         <input
                             type='date'
-                            defaultValue={registerValues.record_date.slice(0, 19)}
+                            defaultValue={registerValues.record_date.slice(0, 10)}
                             onChange={e => { setCurrentRecordDate(e.target.value === '' ? null : e.target.value) }}
                         /> :
                         <p>{dateTimeFormater(registerValues.record_date)}</p>}
@@ -95,11 +95,11 @@ export default function Registry({ data: { id, concept, amount, record_date, ope
             </div>
 
             <div className="registry-actions">
-                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete" /></div>
                 {isEditable ?
-                    <div className="registry-action-button-confirm" onClick={handleEdit}><img src="check.svg" alt="confirm" style={{ width: '100%' }} /></div> :
+                    <div className="registry-action-button-confirm" onClick={handleEdit}><img src="check.svg" alt="confirm" /></div> :
                     <div className="registry-action-button-edit" onClick={handleEdit}><img src="pencil.svg" alt="update" /></div>}
 
+                <div className="registry-action-button-delete" onClick={handleDelete}><img src="trashcan.svg" alt="delete" /></div>
             </div>
         </div>
     )

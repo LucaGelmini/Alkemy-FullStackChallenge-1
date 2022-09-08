@@ -1,0 +1,22 @@
+.balance-chart-container{
+    height: 35vh;
+    width: 35vh;
+    margin-top: 10px;
+    position:relative;
+}
+.balance-sum{
+    color: white;
+    background-color: #333;
+    position: absolute;
+    top: 17.5%;
+    left: 17.5%;
+    margin: auto;
+    width: 65%;
+    height: 65%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}

@@ -10,15 +10,18 @@ function isMail(input) {
 
 export default function LoginForm(props) {
 
-    const { forwardedRefs } = props;
+    const { setLoginwindow, setLogedFlag } = props;
+
     const navigate = useNavigate();
 
     function closeButtonHandler() {
-        forwardedRefs.current.style.visibility = 'hidden'
+        setLoginwindow(false);
     }
 
     async function submitHandler(e) {
-        e.preventDefault()
+        e.preventDefault();
+        setLoginwindow(false);
+
         const { userOrEmail, password } = e.target.elements
         //validation
 
@@ -37,7 +40,10 @@ export default function LoginForm(props) {
         })
         const data = await res.json()
         sessionStorage.setItem('currentUser', JSON.stringify(data));
-        (res.status === 202) && (navigate('/userBalance', { replace: true }))
+        if (res.status === 202) {
+            setLogedFlag(true);
+            navigate('/userBalance', { replace: true });
+        } else setLogedFlag(false);
 
     }
 
@@ -56,7 +62,7 @@ export default function LoginForm(props) {
 
     return (
 
-        <div className="login-form-container" id="login-container" ref={forwardedRefs} onSubmit={submitHandler} onChange={validationHandler}>
+        <div className="login-form-container" id="login-container" onSubmit={submitHandler} onChange={validationHandler}>
             <form className="login-form">
                 <input className="login-text-input login-form-element" type="text" placeholder="Username or email" name='userOrEmail' />
                 <input className="login-text-input login-form-element" type="password" placeholder="password" name='password' />

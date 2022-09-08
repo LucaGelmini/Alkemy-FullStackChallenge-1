@@ -2,6 +2,7 @@ const { Sequelize } = require('../database/models');
 const db = require('../database/models');
 const { dbErrorsHandler } = require('./utils/balancesController');
 const jwt = require("jsonwebtoken");
+const { validationResult } = require('express-validator');
 
 const userBalanceSqlLiteral = `
 CASE
@@ -41,8 +42,15 @@ module.exports = {
     },
     // CREATE
     createUserBalance: async (req, res) => {
+        const validation = validationResult(req)
+        if (validation.errors.length > 0) {
+            res.status(422).json({ errors: validation.errors });
+            console.error(validation.errors);
+            return
+        };
+
         const userId = req.logedUser.user_id
-        const newRegister = req.body.registerValues;
+        const newRegister = req.body;
         try {
             await db.Balance.create({ ...newRegister, user_id: userId })
             const balance = await findAllRegistersSQL(userId)
@@ -65,6 +73,12 @@ module.exports = {
     },
     // EDIT
     editUserBalance: async (req, res) => {
+        const validation = validationResult(req)
+        if (validation.errors.length > 0) {
+            res.status(422).json({ errors: validation.errors });
+            console.error(validation.errors);
+            return
+        };
         const balanceId = req.params.id;
         const userId = req.logedUser.user_id
         try {

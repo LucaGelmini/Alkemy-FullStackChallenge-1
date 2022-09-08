@@ -7,8 +7,8 @@
     background-color: white;
     padding: 15px;
     border: 2px solid black;
-    width: 400px;
-    visibility: hidden;
+    width: 50vw;
+    z-index: 1;
     
 }
 .login-form{
@@ -21,7 +21,7 @@
 }
 .submit-button:hover{
     transition: 1s;
-    background-color: rgb(27, 142, 209);
+    background-color: #1c4e4a;
     color: white;
 }
 
