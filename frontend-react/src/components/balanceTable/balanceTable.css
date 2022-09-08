@@ -46,8 +46,8 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    min-width: 32px;
     border-left: 1px black solid;
+    
 }
 .new-registry-form{
     /* border: solid black 2px; */
@@ -62,8 +62,9 @@
 
 .registry-actions div{
     cursor: pointer;
-    height: 25%;
+    height: 50%;
     overflow: hidden;
+    width: 100%;
 }
 .registry-amount-input{
     width: 80%;
@@ -107,7 +108,7 @@
 .registry-action-button-delete  img,
 .registry-action-button-edit img,
 .registry-action-button-confirm img{
-    height: 100%;
+    width: 30px;
 }
 
 .registry-action-button-delete:hover,
@@ -158,4 +159,5 @@ hr{
     .balance-register-main{
         flex-direction: row;
     }
+
 }

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import Registry from './Registry';
 import NewRegistry from './NewRegistry'
 import './balanceTable.css'
+import resStatusHandler from '../utils/resStatusHandler';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function BalanceTable(props) {
@@ -12,10 +14,13 @@ export default function BalanceTable(props) {
     userBalance,
     setUserBalance,
     logedFlag,
+    setLogedFlag,
     setLoginwindow
   } = props;
 
   const userFromSession = () => JSON.parse(sessionStorage.getItem('currentUser'));
+
+  const navigate = useNavigate();
 
   // READ all table in db for create and update
   useEffect(() => {
@@ -33,14 +38,16 @@ export default function BalanceTable(props) {
         },
         mode: 'cors',
       });
-      const data = await res.json()
-      setUserBalance(data)
-      setLoadingTable(false)
-    }
-    if (loadingTable) {
-      readRegistries()
-    }
-  }, [userBalance, loadingTable, setUserBalance, setLoadingTable, logedFlag, setLoginwindow]);
+      resStatusHandler(res.status, setLogedFlag, navigate);
+      const data = await res.json();
+      setUserBalance(data);
+      setLoadingTable(false);
+    };
+    if (loadingTable) readRegistries();
+  }, [userBalance, loadingTable, setUserBalance,
+    setLoadingTable, logedFlag, setLogedFlag,
+    setLoginwindow, navigate
+  ]);
 
   // CREATE one register
   const addRegister = async (registerValues) => {
@@ -58,6 +65,7 @@ export default function BalanceTable(props) {
       mode: 'cors',
       body: JSON.stringify({ ...registerValues })
     })
+    resStatusHandler(res.status, setLogedFlag, navigate);
     const data = await res.json()
     setUserBalance(data)
   }
@@ -82,6 +90,7 @@ export default function BalanceTable(props) {
         record_date: currentRecordDate.slice(0, 10),
       })
     })
+    resStatusHandler(res.status, setLogedFlag, navigate);
     const data = await res.json()
     setUserBalance(data)
   }
@@ -101,6 +110,7 @@ export default function BalanceTable(props) {
         'token': JSON.stringify(userFromSession().token)
       }
     })
+    resStatusHandler(res.status, setLogedFlag, navigate);
     const data = await res.json()
     setUserBalance(data)
   }
@@ -139,7 +149,7 @@ export default function BalanceTable(props) {
 
         <div className='filters-container'>
           <form className='filer-form' onChange={filterHandler}>
-            <img src='filter-icon.png' style={{ height: '1rem' }} />
+            <img src='filter-icon.png' style={{ height: '1rem' }} alt='filter icon' />
             <select className='filter-selector' name="type">
               <option name='all' value={'all'} >All</option>
               <option name='incomes' value={'incomes'}>Incomes</option>

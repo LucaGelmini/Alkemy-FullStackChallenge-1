@@ -3,3 +3,72 @@ main{
   flex-direction: column;
   align-items: center;
 }
+.home{
+  position: relative;
+  height: 90vh;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
+
+  
+}
+.balance-page-main, .register-form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90vh;
+  width: 100%;
+}
+.home-buttons-container button {
+  border: none;
+  cursor: pointer;
+  background-color: #1c4e4a;
+  color: white;
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+
+}
+.home-buttons-container button:hover {
+  background-color: #28756f;
+}
+.home-buttons-container{
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+.signin-button{
+  margin-top: 20px;
+}
+
+.home-main-message{
+  text-align: center;
+  margin: 30px;
+}
+
+.home-secondary-message{
+  width: 25vh;
+  margin-left: 30px;
+  font-size: 20px;
+}
+
+
+
+.sample-img-container{
+  position: absolute;
+  width: 25vw;
+  overflow: hidden;
+  left: 75vw;
+  top:150px;
+}
+.sample-img{
+  object-fit: scale-down;
+  width: 50vw;
+}
+
+footer{
+  background-color: #333;
+  color: white;  
+}

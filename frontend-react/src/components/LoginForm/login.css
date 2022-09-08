@@ -8,6 +8,7 @@
     padding: 15px;
     border: 2px solid black;
     width: 50vw;
+    z-index: 1;
     
 }
 .login-form{

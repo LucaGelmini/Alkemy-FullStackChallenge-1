@@ -29,8 +29,11 @@ function App() {
                         <Route path='/' element={<Home {...{ logedFlag, setLogedFlag, setLoginwindow }} />} ></Route>
 
                     </Routes>
-
                 </main>
+                <footer>
+                    <p>Developed by Luca Gelmini</p>
+                    <a href=' https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md'>Github</a>
+                </footer>
             </div>
         </BrowserRouter>
     )
