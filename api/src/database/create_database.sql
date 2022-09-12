@@ -9,6 +9,10 @@ CREATE TABLE operation_types(
 	primary key (id)
 )DEFAULT CHARSET=utf8;
 
+INSERT INTO operation_types VALUES
+	(1, "incomes"),
+	(2, "expenses");
+
 DROP TABLE IF EXISTS users;
 CREATE  TABLE users (
 	id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,

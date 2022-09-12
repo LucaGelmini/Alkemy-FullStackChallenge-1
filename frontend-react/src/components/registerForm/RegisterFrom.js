@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './registerForm.css'
 import formValidation from "./utils/formValidation";
 
 export default function RegisterForm() {
     const [inputs, setInputs] = useState([])
+    const navigate = useNavigate();
 
 
     const handleChange = (event) => {
@@ -23,13 +25,17 @@ export default function RegisterForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const validationErrors = [...event.target].map(e => formValidation(e.name, e.value))
+        const validationErrors = [...event.target]
+            .map(e => formValidation(e.name, e.value))
+            .filter(e => (e !== null && e !== undefined));
         if (event.target.password.value !== event.target.confirmPassword.value) {
             validationErrors.push("'confirmPassword' doesn't match with passowrd")
         }
         if (validationErrors.length > 0) {
+            console.log([...event.target].map(e => formValidation(e.name, e.value)).filter(e => (e !== null && e !== undefined)))
             alert(
                 validationErrors.reduce((prev, curr) => {
+                    // Printable errors in alert.
                     if (!curr) return String(prev)
                     return String(prev) + '\n' + String(curr)
                 })
@@ -43,9 +49,23 @@ export default function RegisterForm() {
                 mode: 'cors',
                 body: JSON.stringify(inputs)
             }
-        )
-        const data = await res.json();
-        console.log(data.data)
+        );
+        if (res.status >= 200 && res.status < 300) {
+            const data = await res.json();
+
+            console.log(data.data)
+            navigate('/');
+            return;
+        }
+        //user input error
+        if ((res.status >= 400) && (res.status < 500)) {
+            const data = await res.json();
+            alert(data.errors);
+            return;
+        }
+
+        //default error
+        console.error(`Error status: ${res.status}`);
     }
 
 

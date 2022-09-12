@@ -1,4 +1,5 @@
 const db = require('../database/models');
+const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { validationResult } = require('express-validator');
@@ -54,6 +55,18 @@ module.exports = {
             console.error(validation.errors);
             return
         };
+
+        const matchingUser = await db.User.findAll({
+            where: {
+                [Op.or]: [
+                    { username: username },
+                    { email: email }
+                ]
+            }
+        })
+        if (matchingUser.length > 0) {
+            return res.status(400).json({ errors: 'User already exists' })
+        }
         try {
             const hashedPass = await bcrypt.hash(password, 10);
             await db.User.create({
